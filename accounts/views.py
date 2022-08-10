@@ -23,12 +23,12 @@ from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
-from rest_framework_simplejwt.exceptions import InvalidToken, TokenBackendError
+from rest_framework_simplejwt.exceptions import InvalidToken, TokenError
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import (TokenObtainPairView,
- 
- 
                                             TokenRefreshView)
+
+
 from accounts.models import User, Administrator, Customer
 from accounts.permissions import IsAdministrator, IsCustomer
 from accounts.send_mails import send_activation_mail, send_password_reset_email
@@ -38,3 +38,15 @@ from accounts.serializers import (AdministratorProfileSerializer, CustomerProfil
                                 SetNewPasswordSerializer, UserSerializer)
 
 
+class LoginViewSet(ModelViewSet, TokenObtainPairView):
+    serializer_class = LoginSerializer
+    permission_classes = (AllowAny,)
+    http_method_names = ['post',]
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        try:
+            serializer.is_valid(raise_exception=True)
+        except TokenError as e:
+            raise InvalidToken(e.args[0])
+        return Response(serializer.validated_data, status=status.HTTP_200_OK)
