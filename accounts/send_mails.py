@@ -1,6 +1,4 @@
 import datetime
-from email import message
-from lib2to3.pgen2 import token
 
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.contrib.sites.shortcuts import get_current_site
@@ -18,10 +16,12 @@ def send_activation_mail(user_data, request):
     current_site = get_current_site(request).domain
     mail_subject = "Verify Your Account."
     to_mail = user.email
+    token = RefreshToken.for_user(user).access_token
     relativeLink = reverse('api:email-verify')
     absurl = "http://"+current_site+relativeLink+"?token="+str(token)
-    messsage = f"""
+    message = f"""
 Welcome to E-shop,
+
 Hi {user.username},
 Click on the link below to verify your account,
 {absurl}
