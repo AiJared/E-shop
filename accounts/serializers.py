@@ -68,3 +68,14 @@ class RegistrationSerializer(serializers.ModelSerializer):
         return user
 
 
+class ResetPasswordEmailRequestSerializer(serializers.Serializer):
+    email = serializers.EmailField(
+        max_length=155, min_length=2
+    )
+
+    class Meta:
+        fields = ['email',]
+
+    def validate(self, attrs):
+        return attrs
+
