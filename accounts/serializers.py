@@ -37,7 +37,7 @@ class LoginSerializer(TokenObtainPairSerializer):
         return data
 
 
-class RegistrationSerializer(serializers.ModelSerializer):
+class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(
         max_length=128, min_length=8, write_only=True, required=True)
     password_confirmation = serializers.CharField(
