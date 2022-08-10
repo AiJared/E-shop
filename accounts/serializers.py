@@ -94,3 +94,16 @@ class SetNewPasswordSerializer(serializers.Serializer):
 
     class Meta:
         fields = ("password", "password_confirmation", "token", "uidb64")
+
+
+class CustomerProfileSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)
+
+    class Meta:
+        model = Customer
+        fields = ("id", "user", "bio",
+                    "profile_picture", "city",
+                    "address", "postal_code",
+                    "town", "estate"
+                    )
+        read_only_fields = ("id",)
