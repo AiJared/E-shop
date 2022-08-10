@@ -31,7 +31,38 @@ This is an automatically generated email. Please do not reply.
     """
     email = EmailMessage(
         subject=mail_subject,
-        body=message
+        body=message,
+        to = [to_mail]
+    )
+    email.send()
+
+
+def send_password_reset_email(user_data, request):
+    uidb64 = urlsafe_base64_encode(smart_bytes(user_data.id))
+    token = PasswordResetTokenGenerator().make_token(user_data)
+    to_mail = user_data.email
+    current_site = get_current_site(request).domain
+    relative_link = reverse("api:passworwd-reset-confirm",
+                            kwargs={'uidb64': uidb64,
+                                    'token': token}
+                            )
+    absrurl = "http://"+current_site+relative_link
+    mail_subject = "Reset Your Password"
+    message = f"""
+Hello {user_data.username},
+
+You recently requested for a password reset for your E-shop Account,
+click the link below to reset it:
+{absrurl}
+
+If you did not request a password reset, please ignore this email. If clicking the link above doesn't work, copy
+and paste it in a new browsers tab.
+
+Thanks, E-shop Team.
+    """
+    email = EmailMessage(
+        subject=mail_subject,
+        body=message,
         to = [to_mail]
     )
     email.send()
