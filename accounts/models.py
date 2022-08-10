@@ -136,3 +136,18 @@ class Administrator(Profile):
     
     def __str__(self):
         return self.user.username
+
+class Customer(Profile):
+    city = models.CharField(_("city"), max_length=47,
+                            blank=True, null=True)
+    address = models.CharField(_("address"), max_length=87,
+                                blank=True, null=True)
+    postal_code = models.CharField(
+        _("postal code"), max_length=56, blank=True, null=True)
+    town = models.CharField(_("town"), max_length=78,
+                            blank=True, null=True)
+    estate = models.CharField(
+        _("estate"), max_length=90, blank=True, null=True)
+
+    def __str__(self):
+        return self.user.username
