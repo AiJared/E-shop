@@ -41,6 +41,8 @@ INSTALLED_APPS = [
 PHONENUMBER_DB_FORMAT = 'NATIONAL'
 PHONENUMBER_DEFUALT_REGION = 'KE'
 
+AUTH_USER_MODEL = "accounts.User"
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
