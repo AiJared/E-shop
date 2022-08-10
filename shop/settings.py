@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     #local applicatiions
     "accounts.apps.AccountsConfig",
+    'api.apps.ApiConfig',
 ]
 
 PHONENUMBER_DB_FORMAT = 'NATIONAL'
