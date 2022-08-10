@@ -107,3 +107,14 @@ class CustomerProfileSerializer(serializers.ModelSerializer):
                     "town", "estate"
                     )
         read_only_fields = ("id",)
+
+
+class AdministratorProfileSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)
+
+    class Meta:
+        model = Administrator
+        fields = ("id", "user", "bio",
+                    "profile_picture",
+                    )
+        read_only_fields = ("id",)
