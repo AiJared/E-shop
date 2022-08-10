@@ -50,19 +50,21 @@ class RegistrationSerializer(serializers.ModelSerializer):
         fields = ['username', 'email', 'phone', 
                     'password', 'password_confirmatioin']
         
-        def create(self, validated_data):
-            try:
-                user = User.objects.get(email=validated_data['email'])
-            except ObjectDoesNotExist:
-                if (
-                    validated_data["password"] == validated_data["password_confirmation"]
-                ):
-                    user = User.objects.create(
-                        username=validated_data["username"],
-                        email=validated_data['email'],
-                        phone=validated_data["phone"],
-                        is_active=True
-                    )
-                    user.set_password(validated_data["password"])
-                    user.save()
-            return user
+    def create(self, validated_data):
+        try:
+            user = User.objects.get(email=validated_data['email'])
+        except ObjectDoesNotExist:
+            if (
+                validated_data["password"] == validated_data["password_confirmation"]
+            ):
+                user = User.objects.create(
+                    username=validated_data["username"],
+                    email=validated_data['email'],
+                    phone=validated_data["phone"],
+                    is_active=True
+                )
+                user.set_password(validated_data["password"])
+                user.save()
+        return user
+
+
