@@ -180,3 +180,56 @@ class ProductTestCase(APITestCase):
             'api:products', kwargs={'pk': sprite.id}))
         self.assertEqual(response.status_code, 405)
 
+
+class CategoryTestCase(TestCase):
+    def setup(self):
+        self.client = Client()
+
+    def create_beverage(self):
+        return Category.objects.create(
+            category="Beverages"
+        )
+
+
+class RatingTestCase(TestCase):
+    def setup(self):
+        self.client = Client()
+        self.category = Category.objects.create(
+            category="Beverages"
+        )
+        self.user = User.objects.create(
+            username = "testuser",
+            full_name="test user",
+            email="testuser@gmail.com",
+            phone="+254712345678",
+            role="Customer",
+            is_active=True,
+            is_admin=False,
+            is_staff=False
+        )
+        self.customer = Customer.objects.create(
+            user=self.user,
+            bio="fly high",
+            profile_picture="profile/defualt.png",
+            city = "sun city",
+            address = "151",
+            postal_code="20116",
+            town="river town",
+            estate="villa estate"  
+        )
+        self.coke = Product.objects.create(
+            product_name="Coca-Cola",
+            unit_price=80,
+            stock=10,
+            description="Coca-Cola 500ml",
+            category=self.category,
+            image="products/coke.png"
+        )
+
+    def create_rating(self):
+        return Rating.objects.create(
+            product=self.coke,
+            rating=4,
+            review="was not cold",
+            customer=self.customer
+        )
