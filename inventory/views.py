@@ -137,6 +137,55 @@ class CategoryAPIView(ModelViewSet):
                 {"message": "You are not authorized to perform this action."},
                 status=status.HTTP_401_UNAUTHORIZED)
         return Response(serializer.data, status=status.HTTP_200_OK)
+    
+    def destroy(self, request, pk=None, *args, **kwargs):
+        queryset = self.get_queryset()
+        queryset = get_object_or_404(queryset, pk=pk)
+        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+
+class RatingAPIVIew(ModelViewSet):
+    serializer_class = RatingSerializer
+    permission_classes = [IsCustomer]
+    http_method_names = ["get", "post", "put"]
+
+    def get_queryset(self):
+        user = self.user
+        customerQuery = Customer.objects.get(user=user)
+        ratingQs = Rating.objects.filter(
+            Q(customer=customerQuery)
+        )
+        return ratingQs
+    
+    def list(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def retrieve(self, request, pk=None, *args, **kwargs):
+        queryset = self.get_queryset()
+        queryset = get_object_or_404(queryset, pk=pk)
+        serializer = self.get_serializer(queryset)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        customerQs = Customer.objects.get(user=request.user)
+        serializer.save(customer=customerQs)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    
+    def update(self, request, pk=None, *args, **kwargs):
+        queryset = self.get_queryset()
+        queryset = get_object_or_404(queryset, pk=pk)
+        serializer = self.get_serializer(
+            queryset, data=request.data, partial=True
+        )
+        serializer.is_valid(raise_exception=True)
+        customerQs = Customer.objects.get(user=request.user)
+        serializer.save(customer=customerQs)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
     def destroy(self, request, pk=None, *args, **kwargs):
         queryset = self.get_queryset()
         queryset = get_object_or_404(queryset, pk=pk)
