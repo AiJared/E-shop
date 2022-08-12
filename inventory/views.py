@@ -91,7 +91,7 @@ class CategoryAPIView(ModelViewSet):
     serializer_class = CategorySerializer
     permission_classes = [IsAdministrator, IsCustomer]
     http_method_names = ["get", "post", "put", "patch", "delete"]
-    queryset = Category.obejcts.all()
+    queryset = Category.objects.all()
     
     def list(self, request, *args, **kwargs):
         queryset = self.get_queryset()

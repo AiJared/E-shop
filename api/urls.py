@@ -33,7 +33,7 @@ routes.register("rating", RatingAPIVIew, basename="rating")
 # Order routes
 routes.register("orders", OrderAPIVIew, basename="orders")
 
-urlpaterns  = [
+urlpatterns  = [
     *routes.urls,
     path('activate/', VerifyEmail,
         name='email-veiry'),
