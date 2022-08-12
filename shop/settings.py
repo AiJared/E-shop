@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "accounts.apps.AccountsConfig",
     'api.apps.ApiConfig',
     'inventory.apps.InventoryConfig',
+    'orders.apps.OrdersConfig',
 ]
 
 PHONENUMBER_DB_FORMAT = 'NATIONAL'
