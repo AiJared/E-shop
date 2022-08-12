@@ -21,7 +21,7 @@ class UserSerializer(serializers.ModelSerializer):
                     'timestamp')
         
         read_only_fields = ("id", "email",
-                            "timestamp")
+                            "timestamp",)
 
 
 class LoginSerializer(TokenObtainPairSerializer):
@@ -48,7 +48,7 @@ class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['username', 'email', 'phone', 
-                    'password', 'password_confirmatioin']
+                    'password', 'password_confirmation']
         
     def create(self, validated_data):
         try:
