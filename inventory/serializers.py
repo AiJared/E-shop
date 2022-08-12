@@ -48,4 +48,4 @@ class RatingSerializer(ModelSerializer):
         fields = ("id", "product", "rating",
                     "review", "customer", "created_at",
                     "updated_at",)
-        read_only_fields = ("id")
+        read_only_fields = ("id",)
