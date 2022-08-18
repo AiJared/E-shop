@@ -200,7 +200,7 @@ def PasswordResetTokenCheck(request, uidb64, token):
 class SetNewPasswordAPIView(ModelViewSet):
     serializer_class = SetNewPasswordSerializer
     permission_classes = (AllowAny,)
-    http_method_names = ['post', "get"]
+    http_method_names = ['post',]
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
