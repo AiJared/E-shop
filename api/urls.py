@@ -1,4 +1,3 @@
-from posixpath import basename
 from accounts.views import AdminRegistrationViewSet, AdministratorProfileAPIView, CustomerProfileAPIView, CustomerRegistrationViewSet, LoginViewSet, PasswordResetTokenCheck, RefreshViewSet, RequestPasswordResetEmail, SetNewPasswordAPIView, VerifyEmail
 from inventory.views import CategoryAPIView, ProductAPIView, RatingAPIVIew
 from orders.views import OrderAPIVIew
