@@ -124,6 +124,7 @@ class Profile(models.Model):
     class Meta:
         abstract= True
 
+
 class Administrator(Profile):
     first_name = models.CharField(_('first name'), max_length=50, blank=False, null=False)
     last_name = models.CharField(_('last name'), max_length=50, blank=False, null=False)
@@ -136,6 +137,7 @@ class Administrator(Profile):
     
     def __str__(self):
         return self.user.username
+
 
 class Customer(Profile):
     city = models.CharField(_("city"), max_length=47,
