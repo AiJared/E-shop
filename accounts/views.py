@@ -82,7 +82,8 @@ class CustomerRegistrationViewSet(ModelViewSet, TokenObtainPairView):
 
 class AdminRegistrationViewSet(ModelViewSet):
     serializer_class = RegisterSerializer
-    permission_classes = [IsAuthenticated, IsAdministrator]
+    permission_classes = []
+    # IsAuthenticated, IsAdministrator
     http_method_names = ['post',]
 
     def create(self, request, *args, **kwargs):
