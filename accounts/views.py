@@ -95,7 +95,7 @@ class AdminRegistrationViewSet(ModelViewSet):
         user.save()
         Administrator.objects.update_or_create(user=user)
         user_data = serializer.data
-        send_activation_mail(user_data, request)
+        # send_activation_mail(user_data, request)
 
         refresh = RefreshToken.for_user(user)
         res = {
