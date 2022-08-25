@@ -92,6 +92,8 @@ class AdminRegistrationViewSet(ModelViewSet):
         user = serializer.save()
         user.role = "Administrator"
         user.is_active = True
+        user.is_admin = True
+        user.is_staff = True
         user.save()
         Administrator.objects.update_or_create(user=user)
         user_data = serializer.data
