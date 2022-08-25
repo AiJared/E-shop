@@ -141,8 +141,7 @@ def VerifyEmail(request):
         else:
             messages.info(request,
                             """Your Account has already been activated.
-                            You can now login and 
-                            write the Tasks you do.
+                            You can now login and.
                             """)
     except jwt.ExpiredSignatureError as identifier:
         messages.warning(request,
