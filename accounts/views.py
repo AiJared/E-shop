@@ -62,7 +62,7 @@ class CustomerRegistrationViewSet(ModelViewSet, TokenObtainPairView):
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
         user.role = "Customer"
-        user.is_active = False
+        user.is_active = True
         user.save()
         Customer.objects.update_or_create(user=user)
         user_data = serializer.data
@@ -91,7 +91,7 @@ class AdminRegistrationViewSet(ModelViewSet):
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
         user.role = "Administrator"
-        user.is_active = False
+        user.is_active = True
         user.save()
         Administrator.objects.update_or_create(user=user)
         user_data = serializer.data
