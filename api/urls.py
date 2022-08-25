@@ -35,7 +35,7 @@ routes.register("orders", OrderAPIVIew, basename="orders")
 urlpatterns  = [
     *routes.urls,
     path('activate/', VerifyEmail,
-        name='email-veiry'),
+        name='email-verify'),
     path('password-reset/<uidb64>/<token>', PasswordResetTokenCheck,
         name='password-reset-confirm'),
     path('password-reset-successful/',
